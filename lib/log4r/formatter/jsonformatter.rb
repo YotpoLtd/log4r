@@ -7,6 +7,7 @@ module Log4r
     def initialize(hash = {})
       super(hash)
       @instance = (hash['instance'] || hash[:instance] || nil)
+      @application = (hash['application'] || hash[:application] || nil)
     end
 
     def format(logevent)
@@ -17,6 +18,7 @@ module Log4r
       file, line, method = parse_caller(logevent.tracer[0]) if logevent.tracer
 
       data = {
+          application: @application,
           logger: logger,
           timestamp: timestamp,
           instance: @instance,
